@@ -6,12 +6,19 @@ const cards = document.querySelector('.cards');
 
 axios.get('https://api.github.com/users/AlecThomasQuinn')
     .then( response => {
+
+        // logging the shape of the data
         console.log('have data:', response.data);
+
+        // assigning a value to the axios response and verifying it is the object I want it to be
+        // (this is an unnecessary step but I did it to verify what I trust is happening)
         const cardDataObject = response.data;
         console.log(cardDataObject);
 
-        const card = createCard(response.data);
+        // calling the createCard function on the axios response.data object, stored in 'cardDataObject'
+        const card = createCard(cardDataObject);
 
+        // 'rendering' the new card object returned from createCard() onto the div with the class 'cards'
         cards.appendChild(card);
     })
     .catch( err => {
@@ -85,7 +92,7 @@ function createCard(singleObject){
   cardImg.src = singleObject.avatar_url;
   cardName.textContent = singleObject.name;
   cardUsername.textContent = singleObject.name;
-  cardUserLocation.textContent = `Location:, ${singleObject.location}`;
+  cardUserLocation.textContent = `Location: ${singleObject.location}`;
   cardUserProfileAnchor.href = singleObject.html_url;
   cardUserFollowers.textContent = `Followers: ${singleObject.followers}`;
   cardUserFollowing.textContent = `Following: ${singleObject.following}`;
@@ -106,7 +113,6 @@ function createCard(singleObject){
            create a new component and add it to the DOM as a child of .cards
 */
 
-const followersArray = [];
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -117,3 +123,40 @@ const followersArray = [];
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
+
+//by changing each item in the followersArray[] from empty objects (I think) to strings I can use a 
+//template literal ( ${this thing} ) inside of the url and place each name of the array into the url
+//by looping over it with a forEach() method.
+
+// DAMN
+
+// I
+
+// AM
+
+// GOOD
+
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+    .then( response => {
+      //stripped down the logic insisde of these requests since I've already explained 
+      //the process on the first axios request above.
+        console.log('have data:', response.data);
+
+        const card = createCard(response.data);
+
+        cards.appendChild(card);
+    })
+    .catch( err => {
+        console.log('have not data');
+    })
+
+});
