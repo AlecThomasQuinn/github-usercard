@@ -2,13 +2,20 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/AlecThomasQuinn
 */
+const cards = document.querySelector('.cards');
 
 axios.get('https://api.github.com/users/AlecThomasQuinn')
     .then( response => {
-        console.log('getted data:', response)
+        console.log('have data:', response.data);
+        const cardDataObject = response.data;
+        console.log(cardDataObject);
+
+        const card = createCard(response.data);
+
+        cards.appendChild(card);
     })
     .catch( err => {
-        console.log('has not getted data D:')
+        console.log('have not data');
     })
 
 
@@ -39,7 +46,9 @@ axios.get('https://api.github.com/users/AlecThomasQuinn')
 
 */
 
-function userCard(singleObject){
+function createCard(singleObject){
+
+  //create elements
   const card = document.createElement('div');
   const cardImg = document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -52,6 +61,7 @@ function userCard(singleObject){
   const cardUserFollowing = document.createElement('p');
   const cardUserBio = document.createElement('p');
 
+  //create structer and heirarchy
   card.appendChild(cardImg);
   card.appendChild(cardInfo);
   card.appendChild(cardName);
@@ -63,10 +73,27 @@ function userCard(singleObject){
   card.appendChild(cardUserFollowing);
   card.appendChild(cardUserBio);
 
+  //set classes
+  card.classList.add('card');
   cardInfo.classList.add('card-info');
   cardName.classList.add('name');
+  cardUsername.classList.add('username');
 
 
+  //set properties 
+
+  cardImg.src = singleObject.avatar_url;
+  cardName.textContent = singleObject.name;
+  cardUsername.textContent = singleObject.name;
+  cardUserLocation.textContent = `Location:, ${singleObject.location}`;
+  cardUserProfileAnchor.href = singleObject.html_url;
+  cardUserFollowers.textContent = `Followers: ${singleObject.followers}`;
+  cardUserFollowing.textContent = `Following: ${singleObject.following}`;
+  cardUserBio.textContent = `Bio: ${singleObject.bio}`;
+
+
+  return card;
+};
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -90,5 +117,3 @@ const followersArray = [];
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-
