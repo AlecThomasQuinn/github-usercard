@@ -64,14 +64,14 @@ function createCard(singleObject){
   //create structer and heirarchy
   card.appendChild(cardImg);
   card.appendChild(cardInfo);
-  card.appendChild(cardName);
-  card.appendChild(cardUsername);
-  card.appendChild(cardUserLocation);
-  card.appendChild(cardUserProfile);
-  cardUserProfile.appendChild(cardUserProfileAnchor);
-  card.appendChild(cardUserFollowers);
-  card.appendChild(cardUserFollowing);
-  card.appendChild(cardUserBio);
+    cardInfo.appendChild(cardName);
+    cardInfo.appendChild(cardUsername);
+    cardInfo.appendChild(cardUserLocation);
+    cardInfo.appendChild(cardUserProfile);
+      cardUserProfile.appendChild(cardUserProfileAnchor);
+    cardInfo.appendChild(cardUserFollowers);
+    cardInfo.appendChild(cardUserFollowing);
+    cardInfo.appendChild(cardUserBio);
 
   //set classes
   card.classList.add('card');
